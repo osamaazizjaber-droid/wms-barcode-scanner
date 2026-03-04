@@ -27,8 +27,6 @@ INCLUDEPATH += QZXing/src
 SOURCES +=   \
     main.cpp \
     barcode_wrapper.cpp \
-    QZXing/src/QZXing.cpp \
-    QZXing/src/CameraImageWrapper.cpp \
     ring/src/ext.c \
     ringqt/src/gpushbutton.cpp \
     ringqt/src/gaction.cpp \
