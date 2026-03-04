@@ -34,6 +34,7 @@ jobs:
         with:
           version: '5.15.2'
           target: 'android'
+          arch: 'android'
 
       - name: Build Qt Android App
         run: |
