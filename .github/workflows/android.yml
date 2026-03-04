@@ -1,0 +1,53 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Java JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'
+          target: 'android'
+          arch: 'android_armv7'
+
+      - name: Build Qt Android App
+        run: |
+          # Use QMake to generate Makefiles for the Android architecture
+          qmake project.pro CONFIG+=debug
+          
+          # Compile the application (including custom Barcode Extension)
+          make -j2
+          
+          # Install the built target to the payload directory
+          make INSTALL_ROOT=android-build install
+          
+          # Package the APK using androiddeployqt
+          export ANDROID_SDK_ROOT=$ANDROID_HOME
+          androiddeployqt --input android-libproject.so-deployment-settings.json --output android-build --android-platform android-30 --jdk $JAVA_HOME --gradle
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Barcode-Scanner-APK
+          path: android-build/build/outputs/apk/debug/android-build-debug.apk

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ringapp.ringo</file>
+        <file>main.qml</file>
+        <file>logo.ico</file>
+    </qresource>
+</RCC>
