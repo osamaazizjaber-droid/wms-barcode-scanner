@@ -32,7 +32,7 @@ jobs:
       - name: Install Qt
         run: |
           pip install aqtinstall
-          aqt install-qt linux android 5.15.2 android -m qtcharts qtsvg qt3d --outputdir ${{ github.workspace }}/Qt
+          aqt install-qt linux android 5.15.2 android -m qtcharts --outputdir ${{ github.workspace }}/Qt
           echo "${{ github.workspace }}/Qt/5.15.2/android/bin" >> $GITHUB_PATH
 
       - name: Build Qt Android App
