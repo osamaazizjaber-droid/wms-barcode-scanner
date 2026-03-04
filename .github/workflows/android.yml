@@ -30,11 +30,10 @@ jobs:
           python-version: '3.10'
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: '5.15.2'
-          target: 'android'
-          arch: 'android'
+        run: |
+          pip install aqtinstall
+          aqt install-qt linux android 5.15.2 android --outputdir ${{ github.workspace }}/Qt
+          echo "${{ github.workspace }}/Qt/5.15.2/android/bin" >> $GITHUB_PATH
 
       - name: Build Qt Android App
         run: |
