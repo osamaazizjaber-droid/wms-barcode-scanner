@@ -31,13 +31,10 @@ RING_FUNC(ring_decode_barcode) {
 
   QZXing decoder;
 
-  // Explicitly set decoders just in case default constructor doesn't
   decoder.setDecoder(
       QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_CODE_128 |
       QZXing::DecoderFormat_CODE_39 | QZXing::DecoderFormat_EAN_13 |
       QZXing::DecoderFormat_EAN_8);
-
-  decoder.setTryHarder(true);
 
   // Test decoding the passed image again, reverting to using QImage directly
   // since we know QImage works. Using ARGB32 because it avoids Grayscale index
